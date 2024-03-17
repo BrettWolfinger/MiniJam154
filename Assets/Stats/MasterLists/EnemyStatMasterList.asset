@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f0e820f26ed26b43a440d1d083f1ec1, type: 3}
+  m_Name: EnemyStatMasterList
+  m_EditorClassIdentifier: 
+  <statsList>k__BackingField:
+  - {fileID: 11400000, guid: 2f18ff6c23386d948a4b184194f41e80, type: 2}
+  - {fileID: 11400000, guid: 35cd083741325f64a88adaecdb7321bc, type: 2}
+  - {fileID: 11400000, guid: c230adae7cd291045bcf8fea330a70f5, type: 2}
+  <Ammo>k__BackingField: {fileID: 0}
+  <MaxHealth>k__BackingField: {fileID: 0}
+  <Speed>k__BackingField: {fileID: 0}
+  <EnemyHealth>k__BackingField: {fileID: 11400000, guid: 2f18ff6c23386d948a4b184194f41e80, type: 2}
+  <EnemySpeed>k__BackingField: {fileID: 11400000, guid: 35cd083741325f64a88adaecdb7321bc, type: 2}
+  <EnemyRespawnRate>k__BackingField: {fileID: 11400000, guid: c230adae7cd291045bcf8fea330a70f5, type: 2}

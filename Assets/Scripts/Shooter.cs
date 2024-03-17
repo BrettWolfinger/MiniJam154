@@ -29,6 +29,7 @@ public class Shooter : MonoBehaviour
         shotsPerReload = (int) upgradeManager.GetStatValue(statsList.Ammo.name);
         bulletsLeft = shotsPerReload;
         ammoCountUI.text = bulletsLeft.ToString();
+        UpdateAmmoText();
     }
 
     // Update is called once per frame
@@ -50,7 +51,7 @@ public class Shooter : MonoBehaviour
                 rb.velocity = (mousePosition - (Vector2)transform.position) * projectileSpeed;
             }
             bulletsLeft--;
-            ammoCountUI.text = bulletsLeft.ToString();
+            UpdateAmmoText();
         }
         else
         {
@@ -67,7 +68,12 @@ public class Shooter : MonoBehaviour
     {
         yield return new WaitForSeconds(reloadSpeed);
         bulletsLeft = shotsPerReload;
-        ammoCountUI.text = bulletsLeft.ToString();
+        UpdateAmmoText();
         IsReloading = false;
+    }
+
+    void UpdateAmmoText()
+    {
+        ammoCountUI.text = "Ammo: " + bulletsLeft +"/" + shotsPerReload;
     }
 }

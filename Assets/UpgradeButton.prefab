@@ -353,6 +353,7 @@ MonoBehaviour:
   upgradeManager: {fileID: 0}
   currentValue: 0
   nextValue: 0
+  costToUpgrade: 0
 --- !u!114 &1224840956411304415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,6 +369,7 @@ MonoBehaviour:
   upgradeText: {fileID: 7654458370674854267}
   currentValueText: {fileID: 0}
   nextValueText: {fileID: 0}
+  buyButton: {fileID: 9079907325323110554}
 --- !u!1 &9026543967507913080
 GameObject:
   m_ObjectHideFlags: 0

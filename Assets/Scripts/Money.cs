@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Money : Saver
 {
     public float money {get; private set;}
 
     TextMeshProUGUI moneyText;
+    int moneyForDay = 0;
 
     string fileEnding = "/Money.json";
 
@@ -26,28 +28,40 @@ public class Money : Saver
 
     void Start()
     {
-        UpdateMoneyText();
+        if(SceneManager.GetActiveScene().name == "GameplayScreen")
+        {
+            UpdateDayMoneyText();
+        }
+        else
+        {
+            UpdateMoneyText();
+        }
     }
 
     void OnEnable()
     {
-        EnemyHealth.enemyDestroyed += AddMoney;
+        EnemyHealth.enemyDestroyed += AddMoneyForKill;
         UpgradeButtonController.UpgradePurchased += PurchaseUpgrade;
-        //PhaseManager.DiedGameplayPhase += ResetSave;
+        PhaseManager.SurvivedGameplayPhase += AddToTotal;
     }
 
     void OnDisable()
     {
-        EnemyHealth.enemyDestroyed -= AddMoney;
+        EnemyHealth.enemyDestroyed -= AddMoneyForKill;
         UpgradeButtonController.UpgradePurchased -= PurchaseUpgrade;
-        //PhaseManager.DiedGameplayPhase -= ResetSave;
+        PhaseManager.SurvivedGameplayPhase -= AddToTotal;
     }
 
-    void AddMoney(int moneyPerKill)
+    void AddMoneyForKill(int moneyPerKill, float comboMultiplier)
     {
-        money += moneyPerKill;
+        moneyForDay += (int) (moneyPerKill*comboMultiplier);
+        UpdateDayMoneyText();
+    }
+
+    void AddToTotal()
+    {
+        money += moneyForDay;
         Save((int)money,fileEnding);
-        UpdateMoneyText();
     }
 
     public void SubtractMoney(float amountToSubtract)
@@ -65,5 +79,10 @@ public class Money : Saver
     public void UpdateMoneyText()
     {
         moneyText.text = "Money: $" + money.ToString();
+    }
+
+    public void UpdateDayMoneyText()
+    {
+        moneyText.text = "Money: $" + moneyForDay.ToString();
     }
 }

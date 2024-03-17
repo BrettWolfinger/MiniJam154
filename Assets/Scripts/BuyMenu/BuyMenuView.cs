@@ -18,13 +18,13 @@ public class BuyMenuView : BuyMenuElement
     [SerializeField] TextMeshProUGUI nextValueText;
     // [SerializeField] TextMeshProUGUI StockText;
     // [SerializeField] TextMeshProUGUI PriceText;
-    // [SerializeField] Button buyButton;
+    [SerializeField] Button buyButton;
     
     TextMeshProUGUI buyButtonText;
 
     void Awake()
     {
-        //buyButtonText = buyButton.GetComponentInChildren<TextMeshProUGUI>();
+        buyButtonText = buyButton.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     void Start()
@@ -36,6 +36,7 @@ public class BuyMenuView : BuyMenuElement
     public void UpdateTexts()
     {
         UpdateUpgradeText();
+        UpdateButtonText();
         // UpdateCurrentValueText();
         // UpdateNextValueText();
     }
@@ -44,6 +45,11 @@ public class BuyMenuView : BuyMenuElement
     public void UpdateUpgradeText()
     {
         upgradeText.text = buyMenu.model.currentValue.ToString() + "-->" + buyMenu.model.nextValue.ToString();
+    }
+
+    public void UpdateButtonText()
+    {
+        buyButtonText.text = "Increase " + buyMenu.model.statToUpgrade.name + " $" + buyMenu.model.statToUpgrade.costToUpgrade;
     }
 
 

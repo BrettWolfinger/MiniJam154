@@ -3,24 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : Saver
 {
     [SerializeField] StatsMasterListSO statsMasterList;
     [SerializeField] TextMeshProUGUI healthText;
+    [SerializeField] Button repairButton;
     [SerializeField] GameObject deathPanel;
+    [SerializeField] int repairCost = 10;
 
     int playerHealth = 3;
     int maxHealth;
     string fileEnding = "Health.json";
     Money moneyManager;
-    int repairCost = 10;
+    TextMeshProUGUI repairButtonText;
     Upgrades upgradeManager;
 
     void Awake()
     {
         upgradeManager = FindObjectOfType<Upgrades>();
         moneyManager = FindObjectOfType<Money>();
+        if(repairButton != null)
+            repairButtonText = repairButton.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     void OnEnable()
@@ -44,6 +49,8 @@ public class PlayerHealth : Saver
             Save(playerHealth,fileEnding);
         }
         UpdateHealthText();
+        if(repairButton != null)
+            UpdateRepairButtonText();
     }
 
 
@@ -63,6 +70,7 @@ public class PlayerHealth : Saver
     {
         playerHealth++;
         UpdateHealthText();
+        UpdateRepairButtonText();
         Save(playerHealth,fileEnding);
     }
 
@@ -87,6 +95,11 @@ public class PlayerHealth : Saver
     void UpdateHealthText()
     {
         healthText.text = "Health: " + playerHealth.ToString() + "/" + maxHealth.ToString(); 
+    }
+
+    void UpdateRepairButtonText()
+    {
+        repairButtonText.text = "Repair One Health $" + repairCost;
     }
 
     private void Die()

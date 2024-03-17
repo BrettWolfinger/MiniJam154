@@ -25,11 +25,13 @@ public class Upgrades : UpgradeSaver
     void OnEnable()
     {
         UpgradeButtonController.UpgradePurchased += PurchaseUpgrade;
+        EnemyMutations.Mutation += PurchaseUpgrade;
     }
 
     void OnDisable()
     {
         UpgradeButtonController.UpgradePurchased -= PurchaseUpgrade;
+        EnemyMutations.Mutation -= PurchaseUpgrade;
     }
 
     private void PurchaseUpgrade(UpgradeableStatSO upgradedStat)
