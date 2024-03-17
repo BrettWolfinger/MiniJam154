@@ -4,19 +4,25 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEditor;
+using UnityEditor.Sprites;
 using UnityEngine;
 
-public class DayCounter : MonoBehaviour
+public class DayCounter : Saver
 {
     TextMeshProUGUI dayText;
     int day = 1;
-    string path;
+    string fileEnding = "/Day.json";
 
     void Awake()
     {
-        path = Application.persistentDataPath + "/Day.json";
         dayText = gameObject.GetComponentInChildren<TextMeshProUGUI>();
-        Load();
+        day = Load(fileEnding);
+        //No save data found, initialize at default value
+        if(day == -1)
+        {
+            day = 1;
+            Save(day,fileEnding);
+        }
     }
 
     void Start()
@@ -28,50 +34,23 @@ public class DayCounter : MonoBehaviour
     void OnEnable()
     {
         PhaseManager.SurvivedGameplayPhase += IncrementDay;
-        //PhaseManager.DiedGameplayPhase += LoadMainMenu;
+        //PhaseManager.DiedGameplayPhase += ResetSave;
     }
 
     void OnDisable()
     {
         PhaseManager.SurvivedGameplayPhase -= IncrementDay;
-        //PhaseManager.DiedGameplayPhase -= LoadMainMenu;
+        //PhaseManager.DiedGameplayPhase -= ResetSave;
     }
 
     void IncrementDay()
     {
         day++;
-        Save();
+        Save(day,fileEnding);
     }
 
     public void UpdateDayText()
     {
         dayText.text = "Day: " + day.ToString();
-    }
-
-    private void Save()
-    {
-        DaySave daySave = new DaySave();
-        daySave.day = day;
-        string json = JsonUtility.ToJson(daySave);
-        System.IO.File.WriteAllText(path, json);
-    }
-
-    private void Load()
-    {
-        DaySave daySave = new DaySave();
-        //If there is no save file that exists, create one
-        if (!File.Exists(path))
-        {
-            Save();
-        }
-        string json = System.IO.File.ReadAllText(path);
-        JsonUtility.FromJsonOverwrite(json, daySave);
-        day = daySave.day;
-    }
-
-    [System.Serializable]
-    public class DaySave
-    {
-        public int day;
     }
 }

@@ -13,7 +13,6 @@ public class TimeOfDay : MonoBehaviour
     bool paused = false;
     void Awake() {
         timeLeft = lengthOfDay;
-        print(Time.timeScale);
     }
 
     void Start()

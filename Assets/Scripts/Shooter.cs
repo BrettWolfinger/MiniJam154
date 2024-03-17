@@ -6,18 +6,27 @@ using UnityEngine;
 
 public class Shooter : MonoBehaviour
 {
+    [SerializeField] StatsMasterListSO statsList;
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] float projectileSpeed = 10f;
-    [SerializeField] int shotsPerReload = 1;
     [SerializeField] float reloadSpeed = 2f;
     [SerializeField] TextMeshProUGUI ammoCountUI;
+
+    Upgrades upgradeManager;
+    int shotsPerReload;
 
     int bulletsLeft;
     bool IsReloading = false;
 
+    void Awake()
+    {
+        upgradeManager = FindObjectOfType<Upgrades>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        shotsPerReload = (int) upgradeManager.GetStatValue(statsList.Ammo.name);
         bulletsLeft = shotsPerReload;
         ammoCountUI.text = bulletsLeft.ToString();
     }

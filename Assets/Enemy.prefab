@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5252084844874759132}
   - component: {fileID: 6057394392833067871}
   - component: {fileID: 633405242194489960}
-  - component: {fileID: -7602619347068977691}
+  - component: {fileID: 4814075399530554029}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -162,7 +162,7 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
---- !u!114 &-7602619347068977691
+--- !u!114 &4814075399530554029
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,10 +171,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1911179444680151780}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0012567abefd14e419fcaebeb7d33298, type: 3}
+  m_Script: {fileID: 11500000, guid: 748d3a5c6f846054fb6c6ef19593534d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayer: 0
-  playerHealth: 3
-  healthText: {fileID: 0}
-  deathText: {fileID: 0}
+  statsMasterList: {fileID: 11400000, guid: 6d8e2ac916d26504db3eae411dbdaa89, type: 2}
+  moneyPerKill: 2
