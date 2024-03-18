@@ -11,16 +11,19 @@ public class DistanceTraveled : Saver
     [SerializeField] StatsMasterListSO statsMasterList;
     int speed; //mps
     [SerializeField] bool isTraveling = false;
+    [SerializeField] TextMeshProUGUI deathScreenText;
 
     float distanceTraveledToday = 0;
     float totalDistanceTraveled = 0;
     TextMeshProUGUI totalDistanceText;
+    Leaderboard leaderboard;
 
     string fileEnding = "/Distance.json";
-        Upgrades upgradeManager;
+    Upgrades upgradeManager;
 
     void Awake()
     {
+        leaderboard = FindObjectOfType<Leaderboard>();
         upgradeManager = FindObjectOfType<Upgrades>();
         totalDistanceText = gameObject.GetComponentInChildren<TextMeshProUGUI>();
         totalDistanceTraveled = Load(fileEnding);
@@ -41,12 +44,14 @@ public class DistanceTraveled : Saver
     void OnEnable()
     {
         PhaseManager.SurvivedGameplayPhase += AddDistanceToTotal;
+        PlayerHealth.PlayerDied += EndGame;
         //PhaseManager.DiedGameplayPhase += ResetSave;
     }
 
     void OnDisable()
     {
         PhaseManager.SurvivedGameplayPhase -= AddDistanceToTotal;
+        PlayerHealth.PlayerDied -= EndGame;
         //PhaseManager.DiedGameplayPhase -= ResetSave;
     }
 
@@ -67,8 +72,25 @@ public class DistanceTraveled : Saver
         Save((int)totalDistanceTraveled,fileEnding);
     }
 
+    void EndGame()
+    {
+        AddDistanceToTotal();
+        StartCoroutine(SubmitDistance());
+        DeathScreenText();
+    }
+
+    IEnumerator SubmitDistance()
+    {
+        yield return leaderboard.SubmitScoreRoutine((int)totalDistanceTraveled);
+    }
+
     public void UpdateDistanceText()
     {
         totalDistanceText.text = "Total Distance: " + totalDistanceTraveled.ToString();
+    }
+
+    public void DeathScreenText()
+    {
+        deathScreenText.text = deathScreenText.text + ((int) totalDistanceTraveled).ToString();
     }
 }

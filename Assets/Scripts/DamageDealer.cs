@@ -19,7 +19,6 @@ public class DamageDealer : MonoBehaviour
     private void Start() 
     {
        damage = (int) upgradeManager.GetStatValue(statsMasterList.Damage.name);
-       print(damage);
     }
 
     private void OnCollisionEnter2D(Collision2D other) 

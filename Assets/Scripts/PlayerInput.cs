@@ -33,5 +33,9 @@ public class PlayerInput : MonoBehaviour
         {
             shooter.Fire(mouseWorldPos);
         }
+        if(Input.GetMouseButtonDown(1))
+        {
+            StartCoroutine(shooter.Reload());
+        }
     }
 }

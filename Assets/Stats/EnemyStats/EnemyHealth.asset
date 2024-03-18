@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd2364f61befca340afb2ecaff971189, type: 3}
   m_Name: EnemyHealth
   m_EditorClassIdentifier: 
-  <baseValue>k__BackingField: 10
+  <baseValue>k__BackingField: 8
   <changePerUpgrade>k__BackingField: 2
   <costToUpgrade>k__BackingField: 0

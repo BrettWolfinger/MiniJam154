@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
-using UnityEditor;
-using UnityEditor.Sprites;
 using UnityEngine;
 
 public class DayCounter : Saver

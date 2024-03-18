@@ -32,7 +32,6 @@ public class EnemyHealth : Saver
     private void Start() 
     {
        enemyHealth = (int) upgradeManager.GetStatValue(statsMasterList.EnemyHealth.name);
-       print(enemyHealth);
     }
 
     public void TakeDamage(int damageAmount)

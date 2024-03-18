@@ -11,7 +11,7 @@ public class PlayerHealth : Saver
     [SerializeField] TextMeshProUGUI healthText;
     [SerializeField] Button repairButton;
     [SerializeField] GameObject deathPanel;
-    [SerializeField] int repairCost = 10;
+    [SerializeField] int repairCost = 5;
 
     int playerHealth = 3;
     int maxHealth;
@@ -19,11 +19,16 @@ public class PlayerHealth : Saver
     Money moneyManager;
     TextMeshProUGUI repairButtonText;
     Upgrades upgradeManager;
+    SFX sFX;
+
+
+    public static Action PlayerDied = delegate { };
 
     void Awake()
     {
         upgradeManager = FindObjectOfType<Upgrades>();
         moneyManager = FindObjectOfType<Money>();
+        sFX = FindObjectOfType<SFX>();
         if(repairButton != null)
             repairButtonText = repairButton.GetComponentInChildren<TextMeshProUGUI>();
     }
@@ -56,6 +61,7 @@ public class PlayerHealth : Saver
 
     private void OnCollisionEnter2D(Collision2D other) 
     {
+        sFX.PlayTrainHitSound();
         playerHealth--;
         Save(playerHealth,fileEnding);
         UpdateHealthText();
@@ -106,7 +112,7 @@ public class PlayerHealth : Saver
     {
         Time.timeScale = 0;
         deathPanel.SetActive(true);
-
+        PlayerDied.Invoke();
         Destroy(this.gameObject);
     }
 }

@@ -10,6 +10,9 @@ public class HitStreak : MonoBehaviour
     [SerializeField] float baseMultiplier = 1f;
     int combo = 0;
 
+    private void Start() {
+        UpdateComboText();
+    }
     public void BulletDestruction(bool wasHit)
     {
         if(wasHit)

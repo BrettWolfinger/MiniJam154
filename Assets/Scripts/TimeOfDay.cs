@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,8 +10,11 @@ public class TimeOfDay : MonoBehaviour
     [SerializeField] Slider timeSlider;
     [SerializeField] GameObject endOfDayMenu;
 
+    public static Action EndOfDay = delegate { };
+
     float timeLeft;
     bool paused = false;
+    
     void Awake() {
         timeLeft = lengthOfDay;
     }
@@ -28,6 +32,7 @@ public class TimeOfDay : MonoBehaviour
         if(timeLeft < 0 && !paused)
         {
             paused = true;
+            EndOfDay.Invoke();
             Time.timeScale = 0;
             endOfDayMenu.SetActive(true);
         }

@@ -9,10 +9,11 @@ public class Shooter : MonoBehaviour
     [SerializeField] StatsMasterListSO statsList;
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] float projectileSpeed = 10f;
-    [SerializeField] float reloadSpeed = 2f;
+    [SerializeField] float reloadSpeed = 1.5f;
     [SerializeField] TextMeshProUGUI ammoCountUI;
 
     Upgrades upgradeManager;
+    SFX sFX;
     int shotsPerReload;
 
     int bulletsLeft;
@@ -21,6 +22,7 @@ public class Shooter : MonoBehaviour
     void Awake()
     {
         upgradeManager = FindObjectOfType<Upgrades>();
+        sFX = FindObjectOfType<SFX>();
     }
 
     // Start is called before the first frame update
@@ -44,6 +46,7 @@ public class Shooter : MonoBehaviour
         {
             GameObject instance = Instantiate(projectilePrefab, 
                                     transform.position, Quaternion.identity);
+            sFX.PlayGunSound();
                 
             Rigidbody2D rb = instance.GetComponent<Rigidbody2D>();
             if(rb != null)
@@ -53,7 +56,7 @@ public class Shooter : MonoBehaviour
             bulletsLeft--;
             UpdateAmmoText();
         }
-        else
+        if(bulletsLeft == 0)
         {
             if(!IsReloading) 
             {
@@ -64,8 +67,9 @@ public class Shooter : MonoBehaviour
         }
     }
 
-    IEnumerator Reload()
+    public IEnumerator Reload()
     {
+        IsReloading = true;
         yield return new WaitForSeconds(reloadSpeed);
         bulletsLeft = shotsPerReload;
         UpdateAmmoText();
