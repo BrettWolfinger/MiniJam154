@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shooter : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Shooter : MonoBehaviour
     [SerializeField] float projectileSpeed = 10f;
     [SerializeField] float reloadSpeed = 1.5f;
     [SerializeField] TextMeshProUGUI ammoCountUI;
+    [SerializeField] TextMeshProUGUI reloadText;
+    [SerializeField] Slider reloadSlider;
 
     Upgrades upgradeManager;
     SFX sFX;
@@ -69,11 +72,13 @@ public class Shooter : MonoBehaviour
 
     public IEnumerator Reload()
     {
+        reloadText.enabled = true;
         IsReloading = true;
         yield return new WaitForSeconds(reloadSpeed);
         bulletsLeft = shotsPerReload;
         UpdateAmmoText();
         IsReloading = false;
+        reloadText.enabled = false;
     }
 
     void UpdateAmmoText()
